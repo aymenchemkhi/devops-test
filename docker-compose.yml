@@ -1,0 +1,30 @@
+version: '2'
+
+networks:
+  devnet:
+
+volumes:
+  nexus-vol:
+  jenkins-vol:
+
+services:
+
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    ports:
+      - "8081:8081"
+    networks:
+      - devnet
+    volumes:
+      - nexus-vol:/var/lib/nexus
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8082:8080"
+    networks:
+      - devnet
+    volumes:
+      - jenkins-vol:/var/jenkins_home
